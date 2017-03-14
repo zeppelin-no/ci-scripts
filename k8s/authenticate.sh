@@ -4,4 +4,4 @@
 ~/.kube/kubectl config set-credentials cluster-admin --username=${K8S_USERNAME} --password ${K8S_PASSWORD}
 
 ~/.kube/kubectl config set-context ci --cluster=cluster --user=cluster-admin
-~/.kube/kubectl use-context ci
+~/.kube/kubectl config use-context ci
