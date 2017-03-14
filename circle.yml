@@ -8,4 +8,6 @@ test:
     - kubectl version --client
 
     - ./k8s/authenticate.sh
-    - kubectl get pods --all-namespaces --insecure-skip-tls-verify
+
+    - cat ~/.kube/config
+    # - kubectl get pods --all-namespaces --insecure-skip-tls-verify
