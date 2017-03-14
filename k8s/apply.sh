@@ -1,9 +1,15 @@
 #!/bin/bash
 
+if [[ $# -eq 0 ]] ; then
+    echo 'Needs k8s namespace as first argument'
+    exit 1
+fi
+
+K8S_NAMESPACE=$1
 TAG=${DOCKER_SHA_TAG}
 
-if [[ ! -z $1 ]]; then
-  TAG=$1
+if [[ ! -z $2 ]]; then
+  TAG=$2
 fi
 
 export VERSION=${TAG}
@@ -15,4 +21,4 @@ do
   envsubst < $f > "./k8s/.generated/$(basename $f)"
 done
 
-# kubectl apply -f ./deploy/.generated/
+kubectl apply -f ./k8s/.generated/ --namespace=${K8S_NAMESPACE}
