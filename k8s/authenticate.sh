@@ -5,3 +5,5 @@
 
 ~/.kube/kubectl config set-context ci --cluster=cluster --user=cluster-admin
 ~/.kube/kubectl config use-context ci
+
+~/.kube/kubectl config view
