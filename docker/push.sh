@@ -1,0 +1,12 @@
+#!/bin/bash
+
+VERSION=DOCKER_SHA_TAG
+
+if [[ ! -z $1 ]]; then
+  VERSION=$1
+  docker tag -f ${DOCKER_TAG_NAME}:${DOCKER_TAG_SHA} ${DOCKER_TAG_NAME}:${VERSION}
+fi
+
+docker tag ${DOCKER_TAG_NAME}:${VERSION} ${DOCKER_REGISTRY}/${DOCKER_TAG_NAME}:${VERSION}
+
+docker push ${DOCKER_REGISTRY}/${DOCKER_TAG_NAME}:${VERSION}
