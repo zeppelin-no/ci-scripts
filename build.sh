@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./docker/build.sh
+source "${BASH_SOURCE%/*}/docker/build.sh"
