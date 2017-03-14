@@ -1,6 +1,11 @@
 #!/bin/bash
 
-TAG=${1}
+TAG=${DOCKER_SHA_TAG}
+
+if [[ ! -z $1 ]]; then
+  TAG=$1
+fi
+
 export VERSION=${TAG}
 
 mkdir -p k8s/.generated
