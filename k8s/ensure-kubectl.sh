@@ -37,8 +37,8 @@ if [ ! -e ~/.kube ]; then
 fi
 
 if [ ! -e ~/.kube/kubectl ]; then
-    wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl -O ~/.kube/kubectl
-    chmod +x ~/.kube/kubectl
+    wget https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin
+    chmod +x /usr/local/bin/kubectl
 fi
 
-~/.kube/kubectl version --client
+kubectl version --client
