@@ -41,4 +41,4 @@ if [ ! -e ~/.kube/kubectl ]; then
     chmod +x ~/.kube/kubectl
 fi
 
-~/.kube/kubectl version
+~/.kube/kubectl version --client

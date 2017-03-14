@@ -5,4 +5,4 @@ machine:
 test:
   override:
     - ./k8s/ensure-kubectl.sh v1.5.4
-    - ~/.kube/kubectl version
+    - ~/.kube/kubectl version --client
