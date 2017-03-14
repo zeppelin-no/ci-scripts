@@ -6,3 +6,6 @@ test:
   override:
     - ./k8s/ensure-kubectl.sh v1.5.4
     - ~/.kube/kubectl version --client
+
+    - ./k8s/authenticate.sh
+    - ~/.kube/kubectl get pods --all-namespaces
