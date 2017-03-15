@@ -6,4 +6,6 @@
 #
 # The variable DOCKER_SHA_TAG should be unique, e.g. inferred from the Git SHA.
 
-source "${BASH_SOURCE%/*}/docker/build.sh"
+DIR=$(dirname "${BASH_SOURCE[0]}")
+
+./${DIR}/docker/build.sh

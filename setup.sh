@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source "${BASH_SOURCE%/*}/k8s/ensure-kubectl.sh"
-source "${BASH_SOURCE%/*}/k8s/authenticate.sh"
+DIR=$(dirname "${BASH_SOURCE[0]}")
 
-source "${BASH_SOURCE%/*}/ecr/authenticate.sh"
+./${DIR}/k8s/ensure-kubectl.sh
+./${DIR}/k8s/authenticate.sh
+
+./${DIR}/ecr/authenticate.sh

@@ -14,5 +14,11 @@
 K8S_NAMESPACE=$1
 DOCKER_TAG=$2
 
-source "${BASH_SOURCE%/*}/docker/push.sh" ${DOCKER_TAG}
-source "${BASH_SOURCE%/*}/k8s/apply.sh" ${K8S_NAMESPACE} ${DOCKER_TAG}
+DIR=$(dirname "${BASH_SOURCE[0]}")
+
+echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
+
+./${DIR}/docker/push.sh ${DOCKER_TAG}
+./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
+
+echo "Deploy complete."
