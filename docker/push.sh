@@ -9,4 +9,6 @@ fi
 
 docker tag -f ${DOCKER_TAG_NAME}:${VERSION} ${DOCKER_REGISTRY}/${DOCKER_TAG_NAME}:${VERSION}
 
+echo "Pushing Docker image to registry with tag ${VERSION}"
+
 docker push ${DOCKER_REGISTRY}/${DOCKER_TAG_NAME}:${VERSION}
