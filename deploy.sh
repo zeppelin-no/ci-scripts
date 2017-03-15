@@ -11,5 +11,8 @@
 #
 # Assumes there's a Docker image <DOCKER_TAG_NAME>:<DOCKER_SHA_TAG> available.
 
-source "${BASH_SOURCE%/*}/docker/push.sh" $2
-source "${BASH_SOURCE%/*}/k8s/apply.sh" $1 $2
+K8S_NAMESPACE=$1
+DOCKER_TAG=$2
+
+source "${BASH_SOURCE%/*}/docker/push.sh" ${DOCKER_TAG}
+source "${BASH_SOURCE%/*}/k8s/apply.sh" ${K8S_NAMESPACE} ${DOCKER_TAG}

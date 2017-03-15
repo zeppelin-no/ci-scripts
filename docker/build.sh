@@ -5,7 +5,7 @@
 # than good. Disabling for now.
 # if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
 
-docker build -t ${DOCKER_TAG_NAME} .  # add --rm=false when using docker cache
+docker build --rm=false -t ${DOCKER_TAG_NAME} .
 docker tag -f ${DOCKER_TAG_NAME}:latest ${DOCKER_TAG_NAME}:${DOCKER_SHA_TAG}
 
 # Store cache
