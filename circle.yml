@@ -10,3 +10,5 @@ test:
     - ./k8s/authenticate.sh
 
     - kubectl get pods --all-namespaces
+
+    - ./k8s/authenticate.sh dev
