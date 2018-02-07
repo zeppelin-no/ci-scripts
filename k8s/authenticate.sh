@@ -1,7 +1,17 @@
 #!/bin/bash
 
-kubectl config set-cluster cluster --server=${K8S_ENDPOINT} --insecure-skip-tls-verify
-kubectl config set-credentials cluster-admin --username=${K8S_USERNAME} --password ${K8S_PASSWORD}
+ENDPOINT=${K8S_ENDPOINT}
+USERNAME=${K8S_USERNAME}
+PASSWORD=${K8S_PASSWORD}
+
+if [ "$1" = "dev" ]; then
+  ENDPOINT=${K8S_ENDPOINT_DEV}
+  USERNAME=${K8S_USERNAME_DEV}
+  PASSWORD=${K8S_PASSWORD_DEV}
+fi
+
+kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
+kubectl config set-credentials cluster-admin --username=${USERNAME} --password ${PASSWORD}
 
 kubectl config set-context ci --cluster=cluster --user=cluster-admin
 kubectl config use-context ci
