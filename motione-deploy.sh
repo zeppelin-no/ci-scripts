@@ -27,10 +27,6 @@ echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
 if [ "${K8S_NAMESPACE}" = "dev" ]; then
   ./${DIR}/k8s/authenticate.sh dev
   ./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
-
-  # Could be removed when removing dev from original cluster
-  ./${DIR}/k8s/authenticate.sh
-  ./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
 else
   ./${DIR}/k8s/authenticate.sh
   ./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
