@@ -25,16 +25,16 @@ if [ -n "${CLIENT_CERTIFICATE}" ]; then
 
   kubectl config set-cluster cluster --server=${ENDPOINT}
   kubectl config set-credentials cluster-admin \
-  --client-certificate=ca.tmp.pem \
-  --client-key=key.tmp.pem \
-  --embed-certs=true
+    --client-certificate=ca.tmp.pem \
+    --client-key=key.tmp.pem \
+    --embed-certs=true
 else
   echo "no CLIENT_CERTIFICATE"
 
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
   kubectl config set-credentials cluster-admin \
-  --username=${USERNAME} \
-  --password ${PASSWORD}
+    --username=${USERNAME} \
+    --password ${PASSWORD}
 fi
 
 
