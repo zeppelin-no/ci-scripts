@@ -19,11 +19,14 @@ echo "$CLIENT_CERTIFICATE"
 echo "CLIENT_CERTIFICATE"
 
 if [ -z "${CLIENT_CERTIFICATE+x}" ]; then
+  echo "no CLIENT_CERTIFICATE"
+
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
   kubectl config set-credentials cluster-admin \
   --username=${USERNAME} \
   --password ${PASSWORD}
 else
+  echo "got CLIENT_CERTIFICATE"
   echo $CLIENT_CERTIFICATE > ca.tmp.pem
   echo $CLIENT_KEY > key.tmp.pem
 
