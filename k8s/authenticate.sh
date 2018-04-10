@@ -18,7 +18,7 @@ echo "CLIENT_CERTIFICATE"
 echo "$CLIENT_CERTIFICATE"
 echo "CLIENT_CERTIFICATE"
 
-if [ -z "${CLIENT_CERTIFICATE+x}" ]; then
+if [ -z ${CLIENT_CERTIFICATE+x} ]; then
   echo "no CLIENT_CERTIFICATE"
 
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
