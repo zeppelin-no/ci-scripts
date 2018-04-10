@@ -14,6 +14,9 @@ if [ "$1" = "dev" ]; then
   CLIENT_KEY=${K8S_KEY_DEV}
 fi
 
+echo "CLIENT_CERTIFICATE"
+echo "$CLIENT_CERTIFICATE"
+echo "CLIENT_CERTIFICATE"
 
 if [ -z "${CLIENT_CERTIFICATE+x}" ]; then
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
