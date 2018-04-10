@@ -15,20 +15,20 @@ if [ "$1" = "dev" ]; then
 fi
 
 
-if [ -n "$CLIENT_CERTIFICATE" ]; then
+if [ -z "${CLIENT_CERTIFICATE+x}" ]; then
+  kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
+  kubectl config set-credentials cluster-admin \
+  --username=${USERNAME} \
+  --password ${PASSWORD}
+else
   echo $CLIENT_CERTIFICATE > ca.tmp.pem
   echo $CLIENT_KEY > key.tmp.pem
 
   kubectl config set-cluster cluster --server=${ENDPOINT}
   kubectl config set-credentials cluster-admin \
-    --client-certificate=ca.tmp.pem \
-    --client-key=key.tmp.pem \
-    --embed-certs=true
-else
-  kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
-  kubectl config set-credentials cluster-admin \
-    --username=${USERNAME} \
-    --password ${PASSWORD}
+  --client-certificate=ca.tmp.pem \
+  --client-key=key.tmp.pem \
+  --embed-certs=true
 fi
 
 
