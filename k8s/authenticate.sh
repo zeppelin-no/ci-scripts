@@ -18,14 +18,7 @@ echo "CLIENT_CERTIFICATE"
 echo "$CLIENT_CERTIFICATE"
 echo "CLIENT_CERTIFICATE"
 
-if [ -z ${CLIENT_CERTIFICATE+x} ]; then
-  echo "no CLIENT_CERTIFICATE"
-
-  kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
-  kubectl config set-credentials cluster-admin \
-  --username=${USERNAME} \
-  --password ${PASSWORD}
-else
+if [ -n "${CLIENT_CERTIFICATE}" ]; then
   echo "got CLIENT_CERTIFICATE"
   echo $CLIENT_CERTIFICATE > ca.tmp.pem
   echo $CLIENT_KEY > key.tmp.pem
@@ -35,6 +28,13 @@ else
   --client-certificate=ca.tmp.pem \
   --client-key=key.tmp.pem \
   --embed-certs=true
+else
+  echo "no CLIENT_CERTIFICATE"
+
+  kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
+  kubectl config set-credentials cluster-admin \
+  --username=${USERNAME} \
+  --password ${PASSWORD}
 fi
 
 
