@@ -36,7 +36,7 @@ else
 fi
 
 
-kubectl config set-context ci --cluster=cluster --user=cluster-admin --namespace="$1"
+kubectl config set-context ci --cluster=cluster --user=cluster-admin
 kubectl config use-context ci
 
 kubectl cluster-info
