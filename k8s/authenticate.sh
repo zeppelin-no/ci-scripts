@@ -5,6 +5,7 @@ USERNAME=${K8S_USERNAME}
 PASSWORD=${K8S_PASSWORD}
 CLIENT_CERTIFICATE=${K8S_CERTIFICATE}
 CLIENT_KEY=${K8S_KEY}
+CLUSTER_CERTIFICATE=${K8S_CLUSTER_CERTIFICATE}
 
 if [ "$1" = "dev" ]; then
   ENDPOINT=${K8S_ENDPOINT_DEV}
@@ -12,22 +13,19 @@ if [ "$1" = "dev" ]; then
   PASSWORD=${K8S_PASSWORD_DEV}
   CLIENT_CERTIFICATE=${K8S_CERTIFICATE_DEV}
   CLIENT_KEY=${K8S_KEY_DEV}
+  CLUSTER_CERTIFICATE=${K8S_CLUSTER_CERTIFICATE_DEV}
 fi
-
-echo "CLIENT_CERTIFICATE"
-echo "$CLIENT_CERTIFICATE"
-echo "CLIENT_CERTIFICATE"
 
 if [ -n "${CLIENT_CERTIFICATE}" ]; then
   echo "got CLIENT_CERTIFICATE"
-  echo $CLIENT_CERTIFICATE > ca.tmp.pem
-  echo $CLIENT_KEY > key.tmp.pem
 
-  kubectl config set-cluster cluster --server=${ENDPOINT}
-  kubectl config set-credentials cluster-admin \
-    --client-certificate=ca.tmp.pem \
-    --client-key=key.tmp.pem \
-    --embed-certs=true
+  kubectl config set-cluster cluster \
+    --server=${ENDPOINT}
+  kubectl config set clusters.cluster.certificate-authority-data $CLUSTER_CERTIFICATE
+
+  # kubectl config set-credentials cluster-admin
+  kubectl config set users.cluster-admin.client-certificate-data $CLIENT_CERTIFICATE
+  kubectl config set users.cluster-admin.client-key-data $CLIENT_KEY
 else
   echo "no CLIENT_CERTIFICATE"
 
