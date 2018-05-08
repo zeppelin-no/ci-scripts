@@ -3,31 +3,31 @@
 ENDPOINT=${K8S_ENDPOINT}
 USERNAME=${K8S_USERNAME}
 PASSWORD=${K8S_PASSWORD}
-CLIENT_CERTIFICATE=${K8S_CERTIFICATE}
-CLIENT_KEY=${K8S_KEY}
-CLUSTER_CERTIFICATE=${K8S_CLUSTER_CERTIFICATE}
+USER_CLIENT_CERTIFICATE=${K8S_USER_CLIENT_CERTIFICATE}
+USER_CLIENT_KEY=${K8S_USER_CLIENT_KEY}
+CLUSTER_CERTIFICATE_AUTHORITY=${K8S_CLUSTER_CERTIFICATE_AUTHORITY}
 
 if [ "$1" = "dev" ]; then
   ENDPOINT=${K8S_ENDPOINT_DEV}
   USERNAME=${K8S_USERNAME_DEV}
   PASSWORD=${K8S_PASSWORD_DEV}
-  CLIENT_CERTIFICATE=${K8S_CERTIFICATE_DEV}
-  CLIENT_KEY=${K8S_KEY_DEV}
-  CLUSTER_CERTIFICATE=${K8S_CLUSTER_CERTIFICATE_DEV}
+  USER_CLIENT_CERTIFICATE=${K8S_USER_CLIENT_CERTIFICATE_DEV}
+  USER_CLIENT_KEY=${K8S_USER_CLIENT_KEY_DEV}
+  CLUSTER_CERTIFICATE_AUTHORITY=${K8S_CLUSTER_CERTIFICATE_AUTHORITY_DEV}
 fi
 
-if [ -n "${CLIENT_CERTIFICATE}" ]; then
-  echo "got CLIENT_CERTIFICATE"
+if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
+  echo "got USER_CLIENT_CERTIFICATE"
 
   kubectl config set-cluster cluster \
     --server=${ENDPOINT}
-  kubectl config set clusters.cluster.certificate-authority-data $CLUSTER_CERTIFICATE
+  kubectl config set clusters.cluster.certificate-authority-data $CLUSTER_CERTIFICATE_AUTHORITY
 
   # kubectl config set-credentials cluster-admin
-  kubectl config set users.cluster-admin.client-certificate-data $CLIENT_CERTIFICATE
-  kubectl config set users.cluster-admin.client-key-data $CLIENT_KEY
+  kubectl config set users.cluster-admin.client-certificate-data $USER_CLIENT_CERTIFICATE
+  kubectl config set users.cluster-admin.client-key-data $USER_CLIENT_KEY
 else
-  echo "no CLIENT_CERTIFICATE"
+  echo "no USER_CLIENT_CERTIFICATE"
 
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
   kubectl config set-credentials cluster-admin \
