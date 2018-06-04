@@ -2,8 +2,6 @@
 
 K8S_VERSION="v1.8.7"
 
-echo $K8S_VERSION
-
 if [[ ! -z $1 ]]; then
   K8S_VERSION=$1
 fi
