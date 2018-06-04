@@ -1,6 +1,10 @@
 #!/bin/bash
 
+kubectl version
+
 K8S_VERSION=$(kubectl version --client=false --short | grep Server | sed -n -e 's/^.*\(v.\)/\1/p' | cut -f1 -d+)
+
+echo $K8S_VERSION
 
 if [[ ! -z $1 ]]; then
   K8S_VERSION=$1
