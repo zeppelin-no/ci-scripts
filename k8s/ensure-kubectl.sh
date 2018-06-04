@@ -1,8 +1,6 @@
 #!/bin/bash
 
-kubectl version
-
-K8S_VERSION=$(kubectl version --client=false --short | grep Server | sed -n -e 's/^.*\(v.\)/\1/p' | cut -f1 -d+)
+K8S_VERSION="v1.8.7"
 
 echo $K8S_VERSION
 
