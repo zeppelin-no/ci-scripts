@@ -23,13 +23,7 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
 ./${DIR}/docker/push.sh ${DOCKER_TAG}
 
-
-if [ "${K8S_NAMESPACE}" = "dev" ]; then
-  ./${DIR}/k8s/authenticate.sh dev
-  ./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
-else
-  ./${DIR}/k8s/authenticate.sh
-  ./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
-fi
+./${DIR}/k8s/authenticate.sh ${K8S_NAMESPACE}
+./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
 
 echo "Deploy complete."

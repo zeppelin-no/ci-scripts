@@ -5,7 +5,6 @@ if [[ $# -eq 0 ]] ; then
     exit 1
 fi
 
-K8S_NAMESPACE=$1
 TAG=${DOCKER_SHA_TAG}
 
 if [[ ! -z $2 ]]; then
@@ -21,4 +20,4 @@ do
   envsubst < $f > "./k8s/.generated/$(basename $f)"
 done
 
-kubectl apply -f ./k8s/.generated/ --namespace=${K8S_NAMESPACE}
+kubectl apply -f ./k8s/.generated/
