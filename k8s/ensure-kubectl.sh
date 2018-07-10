@@ -7,7 +7,7 @@ if [ ! -z "$1" ]; then
 fi
 
 if [ -z "${DOCKER_SHA_TAG}" ]; then
-  export DOCKER_SHA_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
+  export DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 fi
 
 apk update
@@ -46,13 +46,14 @@ fi
 
 if [ ! -e ~/.kube/kubectl ]; then
   # Download kubectl
-
-  curl -LO "https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl"
+  echo 'Downloading kubectl...'
+  curl -LOsS "https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl"
   # curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.11.0/bin/linux/amd64/kubectl
   # Make the kubectl binary executable.
   chmod +x kubectl
   # Move the binary in to your PATH.
   sudo mv kubectl /usr/local/bin/kubectl
+  echo 'kubectl is installed!'
 fi
 
 kubectl version --client
