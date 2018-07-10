@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 VERSION=${DOCKER_SHA_TAG}
 
-if [[ ! -z $1 ]]; then
+if [ ! -z "$1" ]; then
   VERSION=$1
   docker tag -f ${DOCKER_TAG_NAME}:${DOCKER_SHA_TAG} ${DOCKER_TAG_NAME}:${VERSION}
 fi

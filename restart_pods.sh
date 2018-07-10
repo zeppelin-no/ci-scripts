@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Restart pods for a stateful set by deleting the old ones.
 #

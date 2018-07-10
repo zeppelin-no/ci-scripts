@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ENDPOINT=${K8S_ENDPOINT}
 USERNAME=${K8S_USERNAME}
@@ -28,13 +28,9 @@ if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   kubectl config set users.cluster-admin.client-key-data $USER_CLIENT_KEY
 else
   echo "no USER_CLIENT_CERTIFICATE"
-
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
-  kubectl config set-credentials cluster-admin \
-    --username=${USERNAME} \
-    --password ${PASSWORD}
+  kubectl config set-credentials cluster-admin --username=${USERNAME} --password ${PASSWORD}
 fi
-
 
 kubectl config set-context ci --cluster=cluster --user=cluster-admin
 kubectl config use-context ci

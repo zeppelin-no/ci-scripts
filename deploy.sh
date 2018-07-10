@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Deploy a Docker image to Kubernetes by pushing it to a registry and applying
 # the Kubernetes configuration. This assumes Kubernetes config is in the form
@@ -14,7 +14,7 @@
 K8S_NAMESPACE=$1
 DOCKER_TAG=$2
 
-DIR=$(dirname "${BASH_SOURCE[0]}")
+DIR=$(dirname "$0")
 
 echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
 

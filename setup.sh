@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-DIR=$(dirname "${BASH_SOURCE[0]}")
+DIR=$(dirname "$0")
 
 ./${DIR}/k8s/ensure-kubectl.sh
 ./${DIR}/k8s/authenticate.sh

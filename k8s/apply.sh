@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
-if [[ $# -eq 0 ]] ; then
+if [ "$#" -eq 0 ] ; then
     echo 'Needs k8s namespace as first argument'
     exit 1
 fi
 
 TAG=${DOCKER_SHA_TAG}
 
-if [[ ! -z $2 ]]; then
+if [ ! -z "$2" ]; then
   TAG=$2
 fi
 

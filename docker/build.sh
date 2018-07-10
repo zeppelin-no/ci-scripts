@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Load cache if it exists
 # @NOTE: Trying to use Docker cache with CircleCI 1.0 seems to do more harm
