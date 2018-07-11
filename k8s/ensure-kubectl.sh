@@ -10,58 +10,59 @@ if [ -z "${DOCKER_SHA_TAG}" ]; then
   export DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 fi
 
-apk update --quiet --no-progress
+if [ -x "$(command -v apk)" ]; then
+  echo "Using apk"
+  apk update --quiet --no-progress
+  PKG_MANAGER='apk add --quiet --no-progress'
+elif [ -x "$(command -v apt-get)" ]; then
+  echo "Using apt-get"
+  PKG_MANAGER='apt-get install --quiet -y'
+elif [ -x "$(command -v yum)" ]; then
+  echo "Using yum"
+  PKG_MANAGER='yum install --quiet -y'
+else
+  echo "Neither apk, apt-get nor yum found"
+  exit 1
+fi
 
-# PKG_MANAGER=$( command -v yum || command -v apt-get ) || echo "Neither yum nor apt-get found"
-# PKG_MANAGER=$( which yum || which apt-get ) || echo "Neither yum nor apt-get found"
-
-#make sure sudo is installed
-if [ ! -e "/usr/bin/sudo" ]; then
+if ! [ -x "$(command -v sudo)" ]; then
     echo "Installing sudo"
-   apk add --quiet --no-progress sudo
+   ${PKG_MANAGER} sudo
+ else
+   echo 'Using preinstalled sudo'
 fi
-#
-# # remove default setting of requiretty if it exists
-# sed -i '/Defaults requiretty/d' /etc/sudoers
 
-#make sure curl is installed
-if [ ! -e "/usr/bin/curl" ]; then
+if ! [ -x "$(command -v curl)" ]; then
   echo "Installing curl"
-  apk add --quiet --no-progress curl
+  ${PKG_MANAGER} curl
+else
+  echo 'Using preinstalled curl'
 fi
 
-# #make sure jq is installed
-# if [ ! -e "/usr/bin/jq" ]; then
-#     ${PKG_MANAGER} install -y jq
-# fi
-# ${PKG_MANAGER} install -y gettext
-
-#make sure envsubst is installed
-if [ ! -e "/usr/bin/envsubst" ]; then
+if ! [ -x "$(command -v envsubst)" ]; then
   echo "Installing gettext"
-  apk add --quiet --no-progress gettext
+  ${PKG_MANAGER} gettext
+else
+  echo 'Using preinstalled gettext'
 fi
 
-if [ ! -e "/usr/bin/docker" ]; then
+if ! [ -x "$(command -v docker)" ]; then
     echo "Installing docker"
-   apk add --quiet --no-progress docker
+   ${PKG_MANAGER} docker
+ else
+   echo 'Using preinstalled docker'
 fi
 
-# make the temp directory
-# if [ ! -e "~/.kube" ]; then
-#     mkdir -p ~/.kube;
-# fi
-
-if [ ! -e "/usr/local/bin/kubectl" ]; then
-  # Download kubectl
+if ! [ -x "$(command -v kubectl)" ]; then
   echo "Downloading kubectl $K8S_VERSION ..."
   curl -LOsS "https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl"
-  # curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.11.0/bin/linux/amd64/kubectl
   # Make the kubectl binary executable.
   chmod +x kubectl
   # Move the binary in to your PATH.
   sudo mv kubectl /usr/local/bin/kubectl
   echo 'kubectl is installed!'
+else
+  echo 'Using preinstalled kubectl'
 fi
 
 kubectl version --client

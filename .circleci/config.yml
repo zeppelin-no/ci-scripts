@@ -2,7 +2,8 @@ version: 2
 jobs:
   test:
     docker:
-      - image: alpine:3.7
+      # - image: alpine:3.7
+      - image: docker:18.03-git
     steps:
       - checkout
       - run: /root/project/k8s/ensure-kubectl.sh
