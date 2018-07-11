@@ -55,10 +55,10 @@ fi
 
 if ! [ -x "$(command -v aws)" ]; then
   # TODO this is possibly not package manager agnostic
-    echo "Installing aws-cli"
-   ${PKG_MANAGER} aws-cli
-  #  pip3 install awscli
- else
+  echo "Installing aws-cli"
+  ${PKG_MANAGER} python3
+  pip3 install awscli
+else
    echo 'Using preinstalled aws-cli'
 fi
 
