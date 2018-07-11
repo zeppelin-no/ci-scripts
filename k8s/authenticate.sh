@@ -18,12 +18,6 @@ if [ "$1" = "dev" ]; then
   CLUSTER_CERTIFICATE_AUTHORITY="${K8S_CLUSTER_CERTIFICATE_AUTHORITY_DEV}"
 fi
 
-
-echo "DEBUG: USERNAME: ${USERNAME}"
-echo "DEBUG: ENDPOINT: ${ENDPOINT}"
-XXX="$(echo $PASSWORD | tr 'A-Za-z' 'N-ZA-Mn-za-m')"
-echo "DEBUG: RANDOM: ${XXX}"
-
 if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   echo "DEBUG: got USER_CLIENT_CERTIFICATE"
 
@@ -51,3 +45,8 @@ echo "DEBUG: use-context"
 kubectl config use-context ci
 echo "DEBUG: cluster-info"
 kubectl cluster-info
+echo '---'
+echo "DEBUG: cluster-info dump"
+kubectl cluster-info dump
+echo "DEBUG: get all pods"
+kubectl get pods --all-namespaces
