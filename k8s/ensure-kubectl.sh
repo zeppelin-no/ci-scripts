@@ -53,6 +53,17 @@ if ! [ -x "$(command -v docker)" ]; then
    echo 'Using preinstalled docker'
 fi
 
+if ! [ -x "$(command -v aws)" ]; then
+  # TODO this is possibly not package manager agnostic
+    echo "Installing aws-cli"
+   ${PKG_MANAGER} aws-cli
+  #  pip3 install awscli
+ else
+   echo 'Using preinstalled aws-cli'
+fi
+
+
+
 if ! [ -x "$(command -v kubectl)" ]; then
   echo "Downloading kubectl $K8S_VERSION ..."
   curl -LOsS "https://storage.googleapis.com/kubernetes-release/release/$K8S_VERSION/bin/linux/amd64/kubectl"
