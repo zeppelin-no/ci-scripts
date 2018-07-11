@@ -1,6 +1,10 @@
 version: 2
 jobs:
   test:
+    # environment:
+    #   K8S_ENDPOINT: todo endpoint
+    #   K8S_USERNAME: todo username
+    #   K8S_PASSWORD: todo password
     docker:
       # - image: buildpack-deps:trusty
       # - image: circleci/build-image:ubuntu-14.04-XXL-upstart-1189-5614f37
