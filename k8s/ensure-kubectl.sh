@@ -42,6 +42,11 @@ if [ ! -e "/usr/bin/envsubst" ]; then
   apk add --quiet --no-progress gettext
 fi
 
+if [ ! -e "/usr/bin/docker" ]; then
+    echo "Installing docker"
+   apk add --quiet --no-progress docker
+fi
+
 # make the temp directory
 # if [ ! -e "~/.kube" ]; then
 #     mkdir -p ~/.kube;
