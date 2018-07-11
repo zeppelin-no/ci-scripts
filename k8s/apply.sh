@@ -5,7 +5,9 @@ if [ "$#" -eq 0 ] ; then
     exit 1
 fi
 
-TAG=${DOCKER_SHA_TAG}
+DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
+
+TAG="${DOCKER_SHA_TAG}"
 
 if [ ! -z "$2" ]; then
   TAG=$2

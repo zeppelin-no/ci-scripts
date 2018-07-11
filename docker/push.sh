@@ -1,9 +1,11 @@
 #!/bin/sh
 
+DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
+
 VERSION=${DOCKER_SHA_TAG}
 
 if [ ! -z "$1" ]; then
-  VERSION=$1
+  VERSION="$1"
   docker tag ${DOCKER_TAG_NAME}:${DOCKER_SHA_TAG} ${DOCKER_TAG_NAME}:${VERSION}
 fi
 

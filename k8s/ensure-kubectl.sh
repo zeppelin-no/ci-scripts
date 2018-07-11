@@ -6,9 +6,9 @@ if [ ! -z "$1" ]; then
   K8S_VERSION="$1"
 fi
 
-if [ -z "${DOCKER_SHA_TAG}" ]; then
-  export DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
-fi
+# if [ -z "${DOCKER_SHA_TAG}" ]; then
+#   export DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
+# fi
 
 if [ -x "$(command -v apk)" ]; then
   echo "Using apk"
