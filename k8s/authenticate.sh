@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "DEBUG: authenticate.sh start"
 
 ENDPOINT="${K8S_ENDPOINT}"
 USERNAME="${K8S_USERNAME}"
