@@ -45,8 +45,8 @@ echo "DEBUG: use-context"
 kubectl config use-context ci
 echo "DEBUG: cluster-info"
 kubectl cluster-info
-echo '---'
-echo "DEBUG: cluster-info dump"
-kubectl cluster-info dump
-echo "DEBUG: get all pods"
-kubectl get pods --all-namespaces
+# echo '---'
+# echo "DEBUG: cluster-info dump"
+# kubectl cluster-info dump
+# echo "DEBUG: get all pods"
+# kubectl get pods --all-namespaces
