@@ -9,4 +9,4 @@
 # DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(dirname "$0")
 
-./${DIR}/docker/build.sh
+${DIR}/docker/build.sh

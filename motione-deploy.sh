@@ -16,14 +16,14 @@ DOCKER_TAG=$2
 
 DIR=$(dirname "$0")
 
-./${DIR}/k8s/ensure-kubectl.sh
+${DIR}/k8s/ensure-kubectl.sh
 
-./${DIR}/ecr/authenticate.sh
+${DIR}/ecr/authenticate.sh
 
 echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
-./${DIR}/docker/push.sh ${DOCKER_TAG}
+${DIR}/docker/push.sh ${DOCKER_TAG}
 
-./${DIR}/k8s/authenticate.sh ${K8S_NAMESPACE}
-./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
+${DIR}/k8s/authenticate.sh ${K8S_NAMESPACE}
+${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
 
 echo "Deploy complete."

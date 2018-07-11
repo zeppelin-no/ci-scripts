@@ -18,7 +18,7 @@ DIR=$(dirname "$0")
 
 echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
 
-./${DIR}/docker/push.sh ${DOCKER_TAG}
-./${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
+${DIR}/docker/push.sh ${DOCKER_TAG}
+${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG}
 
 echo "Deploy complete."
