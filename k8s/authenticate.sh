@@ -1,5 +1,4 @@
 #!/bin/sh
-echo "DEBUG: authenticate.sh start"
 
 ENDPOINT="${K8S_ENDPOINT}"
 USERNAME="${K8S_USERNAME}"
@@ -9,7 +8,7 @@ USER_CLIENT_KEY="${K8S_USER_CLIENT_KEY}"
 CLUSTER_CERTIFICATE_AUTHORITY="${K8S_CLUSTER_CERTIFICATE_AUTHORITY}"
 
 if [ "$1" = "dev" ]; then
-  echo "DEBUG: dev mode"
+  # echo "DEBUG: dev mode"
   ENDPOINT="${K8S_ENDPOINT_DEV}"
   USERNAME="${K8S_USERNAME_DEV}"
   PASSWORD="${K8S_PASSWORD_DEV}"
@@ -29,24 +28,14 @@ if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   kubectl config set users.cluster-admin.client-key-data $USER_CLIENT_KEY
 else
   echo "DEBUG: no USER_CLIENT_CERTIFICATE"
-  if [ -n "${USERNAME}" ]; then
-    echo "DEBUG: got USERNAME"
-  else
-    echo "DEBUG: got no USERNAME"
-  fi
-  echo "DEBUG: set-cluster"
+  # echo "DEBUG: set-cluster"
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
-  echo "DEBUG: set-credentials"
+  # echo "DEBUG: set-credentials"
   kubectl config set-credentials cluster-admin --username=${USERNAME} --password ${PASSWORD}
 fi
-echo "DEBUG: set-context"
+# echo "DEBUG: set-context"
 kubectl config set-context ci --cluster=cluster --user=cluster-admin
-echo "DEBUG: use-context"
+# echo "DEBUG: use-context"
 kubectl config use-context ci
-echo "DEBUG: cluster-info"
+# echo "DEBUG: cluster-info"
 kubectl cluster-info
-# echo '---'
-# echo "DEBUG: cluster-info dump"
-# kubectl cluster-info dump
-# echo "DEBUG: get all pods"
-# kubectl get pods --all-namespaces
