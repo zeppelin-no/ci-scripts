@@ -18,8 +18,6 @@ DOCKER_TAG=$2
 
 DIR=$(dirname "$0")
 
-
-${DIR}/install-packages.sh
 ${DIR}/k8s/ensure-kubectl.sh
 
 ${DIR}/ecr/authenticate.sh
