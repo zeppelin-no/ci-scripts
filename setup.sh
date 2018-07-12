@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "DEBUG --- setup.sh START  ---"
 DIR=$(dirname "$0")
 
 ${DIR}/k8s/ensure-kubectl.sh

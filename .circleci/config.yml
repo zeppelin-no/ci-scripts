@@ -9,7 +9,7 @@ jobs:
       - run: /root/project/k8s/ensure-kubectl.sh
       - run: kubectl version --client
       - run: /root/project/k8s/authenticate.sh
-      - run: /root/project/ecr/authenticate.sh
+      # - run: /root/project/ecr/authenticate.sh
       - run: kubectl get pods --all-namespaces
       - run: /root/project/k8s/authenticate.sh dev
 workflows:

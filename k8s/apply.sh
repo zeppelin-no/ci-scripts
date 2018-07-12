@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "DEBUG --- k8s apply START  ---"
 if [ "$#" -eq 0 ] ; then
     echo 'Needs k8s namespace as first argument'
     exit 1

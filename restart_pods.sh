@@ -9,6 +9,8 @@
 #  Example: to restart the pods for the stateful set "drebbel":
 #  ./restart_pods.sh drebbel prod
 
+echo "DEBUG --- restart_pods.sh START  ---"
+
 APP_NAME=$1
 K8S_NAMESPACE=$2
 

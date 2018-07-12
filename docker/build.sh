@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo "DEBUG --- docker build START  ---"
 
 DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 

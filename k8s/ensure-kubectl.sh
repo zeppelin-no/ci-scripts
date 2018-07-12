@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "DEBUG --- ensure kubectl START  ---"
 K8S_VERSION="v1.8.7"
 
 if [ ! -z "$1" ]; then
@@ -76,6 +76,5 @@ else
   echo 'Using preinstalled kubectl'
 fi
 
+echo "--- ensure kubectl Complete  ---"
 kubectl version --client
-
-echo "--- setup complete ---"

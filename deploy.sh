@@ -11,6 +11,8 @@
 #
 # Assumes there's a Docker image <DOCKER_TAG_NAME>:<DOCKER_SHA_TAG> available.
 
+echo "DEBUG --- deploy.sh START  ---"
+
 K8S_NAMESPACE=$1
 DOCKER_TAG=$2
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo "DEBUG --- k8s authenticate START  ---"
 ENDPOINT="${K8S_ENDPOINT}"
 USERNAME="${K8S_USERNAME}"
 PASSWORD="${K8S_PASSWORD}"

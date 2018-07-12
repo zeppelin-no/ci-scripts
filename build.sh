@@ -1,5 +1,6 @@
 #!/bin/sh
 
+echo "DEBUG --- build.sh START  ---"
 # Builds Docker image from current directory, and tags it:
 #
 #    <DOCKER_TAG_NAME>:<DOCKER_SHA_TAG>
