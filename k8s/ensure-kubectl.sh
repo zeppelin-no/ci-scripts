@@ -1,6 +1,11 @@
 #!/bin/sh
 echo "DEBUG --- ensure kubectl START  ---"
-K8S_VERSION="v1.8.7"
+# Current latest version:
+# K8S_VERSION="v1.11.0"
+# The version from the current master:
+# K8S_VERSION="v1.8.7"
+# The version used in 0.1.0 tag
+K8S_VERSION="v1.5.4"
 
 if [ ! -z "$1" ]; then
   K8S_VERSION="$1"
