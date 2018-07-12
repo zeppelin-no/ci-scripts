@@ -37,6 +37,7 @@ fi
 kubectl config set-context ci --cluster=cluster --user=cluster-admin
 # echo "DEBUG: use-context"
 kubectl config use-context ci
-# echo "DEBUG: cluster-info"
+# echo "DEBUG: version"
 kubectl version
+# echo "DEBUG: cluster-info"
 kubectl cluster-info
