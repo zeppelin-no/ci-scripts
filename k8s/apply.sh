@@ -4,6 +4,8 @@ if [ "$#" -eq 0 ] ; then
     echo 'Needs k8s namespace as first argument'
     exit 1
 fi
+K8S_NAMESPACE=$1
+
 echo "-----------------------"
 echo "Working dir:"
 pwd
@@ -22,6 +24,7 @@ echo "CIRCLE_SHA1: $CIRCLE_SHA1"
 echo "DOCKER_SHA_TAG: $DOCKER_SHA_TAG"
 echo "TAG: $TAG"
 echo "VERSION: $VERSION"
+echo "K8S_NAMESPACE: $K8S_NAMESPACE"
 echo "-----------------------"
 
 mkdir -p k8s/.generated
@@ -39,4 +42,4 @@ ls ./k8s/.generated
 echo "========= dumping content of k8s/.generated/ files"
 cat ./k8s/.generated/*
 echo "-----------------------"
-kubectl apply -f ./k8s/.generated/
+kubectl apply -f ./k8s/.generated/ --namespace="$K8S_NAMESPACE"
