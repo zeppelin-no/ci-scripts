@@ -14,7 +14,7 @@ fi
 # Load cache if it exists
 # @NOTE: Trying to use Docker cache with CircleCI 1.0 seems to do more harm
 # than good. Disabling for now.
-# if [[ -e ~/docker/image.tar ]]; then docker load -i ~/docker/image.tar; fi
+# if [ -e "~/docker/image.tar" ]; then docker load -i ~/docker/image.tar; fi
 
 echo "Building ${DOCKER_TAG_NAME}"
 docker build --rm=false -t ${DOCKER_TAG_NAME} .

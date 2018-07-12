@@ -6,13 +6,13 @@ jobs:
       - image: docker:18.03-git
     steps:
       - checkout
-      - run: /root/project/install-packages.sh
-      - run: /root/project/k8s/ensure-kubectl.sh
+      - run: ./install-packages.sh
+      - run: ./k8s/ensure-kubectl.sh
       - run: kubectl version --client
-      - run: /root/project/k8s/authenticate.sh
-      - run: /root/project/ecr/authenticate.sh      
+      - run: ./k8s/authenticate.sh
+      - run: ./ecr/authenticate.sh
       # - run: kubectl get pods --all-namespaces
-      - run: /root/project/k8s/authenticate.sh dev
+      - run: ./k8s/authenticate.sh dev
 workflows:
   version: 2
   build_and_test:
