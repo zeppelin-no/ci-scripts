@@ -4,7 +4,7 @@ jobs:
     docker:
       # - image: alpine:3.7
       # - image: docker:18.03-git
-      - image: strindhaug/zep-k8s-build:0.0.1
+      - image: strindhaug/zep-k8s-build:0.0.1-kubectl-v1.8.7
     steps:
       - checkout
       - run: ./k8s/ensure-kubectl.sh

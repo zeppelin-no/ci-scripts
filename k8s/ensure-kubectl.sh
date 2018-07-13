@@ -2,10 +2,10 @@
 echo "DEBUG --- ensure kubectl START  ---"
 
 # Current latest version:
-K8S_VERSION="v1.11.0"
+# K8S_VERSION="v1.11.0"
 
 # The version from the current master:
-# K8S_VERSION="v1.8.7"
+K8S_VERSION="v1.8.7"
 
 # The version used in 0.1.0 tag
 # K8S_VERSION="v1.5.4"
