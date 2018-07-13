@@ -11,7 +11,7 @@ jobs:
       - run: kubectl version --client
       - run: ./k8s/authenticate.sh
       - run: ./ecr/authenticate.sh
-      # - run: kubectl get pods --all-namespaces
+      - run: kubectl get pods --all-namespaces
       - run: ./k8s/authenticate.sh dev
 workflows:
   version: 2

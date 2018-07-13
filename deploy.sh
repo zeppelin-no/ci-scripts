@@ -21,9 +21,9 @@ DIR=$(dirname "$0")
 echo "Deploying with tag ${DOCKER_TAG} to namespace ${K8S_NAMESPACE}"
 
 echo "Pushing..."
-# if ${DIR}/docker/push.sh ${DOCKER_TAG} ; then
+if ${DIR}/docker/push.sh ${DOCKER_TAG} ; then
   echo "Push done, deploying..."
-  # if ${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG} ; then
+  if ${DIR}/k8s/apply.sh ${K8S_NAMESPACE} ${DOCKER_TAG} ; then
     echo "Deploy complete."
   else
     echo "Deploy failed!"

@@ -16,7 +16,7 @@ USER_CLIENT_KEY="${K8S_USER_CLIENT_KEY}"
 CLUSTER_CERTIFICATE_AUTHORITY="${K8S_CLUSTER_CERTIFICATE_AUTHORITY}"
 
 if [ "$1" = "dev" ]; then
-  # echo "DEBUG: dev mode"
+  echo "DEBUG: dev mode"
   ENDPOINT="${K8S_ENDPOINT_DEV}"
   USERNAME="${K8S_USERNAME_DEV}"
   PASSWORD="${K8S_PASSWORD_DEV}"
@@ -29,10 +29,10 @@ fi
 echo "DEBUG: USERNAME: ${USERNAME}"
 echo "DEBUG: ENDPOINT: ${ENDPOINT}"
 # Obfuscate the password with rot13:
-# XXX="$(echo $PASSWORD | tr 'A-Za-z' 'N-ZA-Mn-za-m')"
-# echo "DEBUG: RANDOM: ${XXX}"
-# To get the unscrambled PASSWORD use
-# echo 'THE RANDOM STRING HERE' | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+XXX="$(echo $PASSWORD | tr 'A-Za-z' 'N-ZA-Mn-za-m')"
+echo "DEBUG: RANDOM: ${XXX}"
+## To get the unscrambled PASSWORD use
+## echo 'THE RANDOM STRING HERE' | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
 if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   echo "DEBUG: got USER_CLIENT_CERTIFICATE"
