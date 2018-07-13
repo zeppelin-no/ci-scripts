@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "DEBUG --- docker push START  ---"
+# echo "DEBUG --- docker push START  ---"
 DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 
 VERSION=${DOCKER_SHA_TAG}

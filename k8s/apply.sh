@@ -1,15 +1,10 @@
 #!/bin/sh
-echo "DEBUG --- k8s apply START  ---"
+# echo "DEBUG --- k8s apply START  ---"
 if [ "$#" -eq 0 ] ; then
     echo 'Needs k8s namespace as first argument'
     exit 1
 fi
 K8S_NAMESPACE=$1
-
-echo "-----------------------"
-echo "Working dir:"
-pwd
-echo "-----------------------"
 DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 
 TAG="${DOCKER_SHA_TAG}"
@@ -20,12 +15,13 @@ fi
 
 export VERSION=${TAG}
 
-echo "CIRCLE_SHA1: $CIRCLE_SHA1"
-echo "DOCKER_SHA_TAG: $DOCKER_SHA_TAG"
-echo "TAG: $TAG"
-echo "VERSION: $VERSION"
-echo "K8S_NAMESPACE: $K8S_NAMESPACE"
-echo "-----------------------"
+# echo "-----------------------"
+# echo "CIRCLE_SHA1: $CIRCLE_SHA1"
+# echo "DOCKER_SHA_TAG: $DOCKER_SHA_TAG"
+# echo "TAG: $TAG"
+# echo "VERSION: $VERSION"
+# echo "K8S_NAMESPACE: $K8S_NAMESPACE"
+# echo "-----------------------"
 
 mkdir -p k8s/.generated
 
@@ -33,13 +29,4 @@ for f in ./k8s/*.yml
 do
   envsubst < $f > "./k8s/.generated/$(basename $f)"
 done
-echo "========= listing files in k8s/"
-ls ./k8s/
-echo "========= dumping content of k8s/ files"
-cat ./k8s/*
-echo "========= listing files in k8s/.generated/"
-ls ./k8s/.generated
-echo "========= dumping content of k8s/.generated/ files"
-cat ./k8s/.generated/*
-echo "-----------------------"
 kubectl apply -f ./k8s/.generated/ --namespace="$K8S_NAMESPACE"

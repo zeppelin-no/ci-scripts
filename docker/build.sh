@@ -1,14 +1,11 @@
 #!/bin/sh
-
-echo "DEBUG --- docker build START  ---"
+# echo "DEBUG --- docker build START  ---"
 
 DOCKER_SHA_TAG="$(echo $CIRCLE_SHA1 | cut -c -7)"
 
 if [ -z "${DOCKER_SHA_TAG}" ]; then
   echo "ERROR the DOCKER_SHA_TAG is empty: '${DOCKER_SHA_TAG}' based on '$CIRCLE_SHA1'"
   exit 1
-else
-  echo "OK the DOCKER_SHA_TAG is defined: '${DOCKER_SHA_TAG}' based on '$CIRCLE_SHA1'"
 fi
 
 # Load cache if it exists

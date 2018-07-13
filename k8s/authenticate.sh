@@ -1,5 +1,13 @@
 #!/bin/sh
 echo "DEBUG --- k8s authenticate START  ---"
+# For testing locally, (see localenv.sh.sample)
+localenv="./localenv.sh"
+if [ -f "$localenv" ]; then
+  source "$localenv"
+else
+    echo "Optional '${localenv}' not found."
+fi
+
 ENDPOINT="${K8S_ENDPOINT}"
 USERNAME="${K8S_USERNAME}"
 PASSWORD="${K8S_PASSWORD}"
@@ -17,10 +25,14 @@ if [ "$1" = "dev" ]; then
   CLUSTER_CERTIFICATE_AUTHORITY="${K8S_CLUSTER_CERTIFICATE_AUTHORITY_DEV}"
 fi
 
-# echo "DEBUG: USERNAME: ${USERNAME}"
-# echo "DEBUG: ENDPOINT: ${ENDPOINT}"
+# Used for dumping login credentials slightly obfuscated:
+echo "DEBUG: USERNAME: ${USERNAME}"
+echo "DEBUG: ENDPOINT: ${ENDPOINT}"
+# Obfuscate the password with rot13:
 # XXX="$(echo $PASSWORD | tr 'A-Za-z' 'N-ZA-Mn-za-m')"
 # echo "DEBUG: RANDOM: ${XXX}"
+# To get the unscrambled PASSWORD use
+# echo 'THE RANDOM STRING HERE' | tr 'A-Za-z' 'N-ZA-Mn-za-m'
 
 if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   echo "DEBUG: got USER_CLIENT_CERTIFICATE"
@@ -32,17 +44,15 @@ if [ -n "${USER_CLIENT_CERTIFICATE}" ]; then
   kubectl config set users.cluster-admin.client-certificate-data $USER_CLIENT_CERTIFICATE
   kubectl config set users.cluster-admin.client-key-data $USER_CLIENT_KEY
 else
-  echo "DEBUG: no USER_CLIENT_CERTIFICATE"
+  echo "DEBUG: no certificate defined; using username + password"
   # echo "DEBUG: set-cluster"
   kubectl config set-cluster cluster --server=${ENDPOINT} --insecure-skip-tls-verify
   # echo "DEBUG: set-credentials"
   kubectl config set-credentials cluster-admin --username=${USERNAME} --password ${PASSWORD}
 fi
-# echo "DEBUG: set-context"
 kubectl config set-context ci --cluster=cluster --user=cluster-admin
-# echo "DEBUG: use-context"
 kubectl config use-context ci
-# echo "DEBUG: version"
+
+# This is mostly for debugging right?
 kubectl version
-# echo "DEBUG: cluster-info"
 kubectl cluster-info
