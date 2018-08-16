@@ -14,7 +14,7 @@ fi
 # if [ -e "~/docker/image.tar" ]; then docker load -i ~/docker/image.tar; fi
 
 echo "Building ${DOCKER_TAG_NAME}"
-docker build --rm=false -t ${DOCKER_TAG_NAME} .
+docker build --rm=false -t ${DOCKER_TAG_NAME} ${DOCKER_BUILD_ARGS} .
 echo "Create tags ${DOCKER_TAG_NAME}:latest ${DOCKER_TAG_NAME}:${DOCKER_SHA_TAG}"
 docker tag ${DOCKER_TAG_NAME}:latest ${DOCKER_TAG_NAME}:${DOCKER_SHA_TAG}
 
