@@ -11,14 +11,14 @@
 #
 # Assumes there's a Docker image <DOCKER_TAG_NAME>:<DOCKER_SHA_TAG> available.
 
-# echo "DEBUG --- motione-deploy.sh START  ---"
+echo "DEPRECTATED use auth.sh, push.sh and apply.sh instead"
 
 K8S_NAMESPACE=$1
 DOCKER_TAG=$2
 
 DIR=$(dirname "$0")
 
-${DIR}/k8s/ensure-kubectl.sh
+${DIR}/ensure-tools.sh
 ${DIR}/ecr/authenticate.sh
 ${DIR}/k8s/authenticate.sh ${K8S_NAMESPACE}
 

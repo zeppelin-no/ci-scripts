@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "DEBUG --- ensure kubectl START  ---"
+echo "DEBUG --- ensure tools START  ---"
 
 # Current latest version:
 # K8S_VERSION="v1.11.0"
@@ -78,5 +78,5 @@ else
   echo 'Using preinstalled kubectl'
 fi
 
-echo "--- ensure kubectl Complete  ---"
+echo "--- ensure tools Complete  ---"
 kubectl version --client

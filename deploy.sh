@@ -11,7 +11,7 @@
 #
 # Assumes there's a Docker image <DOCKER_TAG_NAME>:<DOCKER_SHA_TAG> available.
 
-# echo "DEBUG --- deploy.sh START  ---"
+echo "DEPRECTATED use push.sh and apply.sh instead"
 
 K8S_NAMESPACE=$1
 DOCKER_TAG=$2

@@ -7,7 +7,7 @@ jobs:
       - image: strindhaug/zep-k8s-build:0.0.1-kubectl-v1.8.7
     steps:
       - checkout
-      - run: ./k8s/ensure-kubectl.sh
+      - run: ./ensure-tools.sh
       - run: kubectl version --client
       - run: ./k8s/authenticate.sh
       - run: ./ecr/authenticate.sh

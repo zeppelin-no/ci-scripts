@@ -1,7 +1,8 @@
 #!/bin/sh
-# echo "DEBUG --- setup.sh START  ---"
+echo "DEPRECTATED use ensure-tools.sh (only if needed) and auth.sh"
+
 DIR=$(dirname "$0")
 
-${DIR}/k8s/ensure-kubectl.sh
+${DIR}/ensure-tools.sh
 ${DIR}/k8s/authenticate.sh
 ${DIR}/ecr/authenticate.sh
