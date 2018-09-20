@@ -1,0 +1,106 @@
+defaults: &defaults
+  environment:
+    CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+    CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+    DOCKER_TAG_NAME: <NAMESPACE>/<SERVICENAME>  # e.g. motione/motione-groups or myservice
+    CI_SCRIPTS_TAG: ci2-v0.2.3 # release tag
+    # CI_SCRIPTS_TAG: feature/circle-ci-2.0 # development branch
+  docker:
+    - image: strindhaug/zep-k8s-build:0.0.1-kubectl-v1.8.7
+  working_directory: ~/zeppelin-no/workdir
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # Restore the dependency cache
+      # - restore_cache:
+      #     keys:
+      #     # This branch if available
+      #     - v1-dep-{{ .Branch }}-
+      #     # Default branch if not
+      #     - v1-dep-master-
+      #     # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+      #     - v1-dep-
+      - run:
+          name: Install common ci-scripts
+          command: git clone -b "${CI_SCRIPTS_TAG}" --single-branch --depth 1 https://github.com/zeppelin-no/ci-scripts.git
+      - run:
+          name: 'Build'
+          command: |
+            export DOCKER_BUILD_ARGS="--build-arg GEMFURY_TOKEN=${GEMFURY_TOKEN}"
+            ./ci-scripts/build.sh
+      - run:
+          name: 'Run test'
+          command: docker run --net=host -e CODECOV_TOKEN=${CODECOV_TOKEN} ${DOCKER_TAG_NAME} yarn test:ci
+      - run:
+          name: 'Push'
+          command: |
+            ./ci-scripts/auth.sh
+            ./ci-scripts/push.sh
+      # - save_cache:
+      #     key: v1-dep-{{ .Branch }}-{{ epoch }}
+      #     paths:
+      #     - ~/zeppelin-no/workdir/docker
+
+  deployStage:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Install common ci-scripts
+          command: git clone -b "${CI_SCRIPTS_TAG}" --single-branch --depth 1 https://github.com/zeppelin-no/ci-scripts.git
+      - run:
+          name: 'Deploy to dev'
+          command: |
+            ./ci-scripts/auth.sh dev
+            REPLICAS=1 ./ci-scripts/apply.sh default
+  deployProd:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Install common ci-scripts
+          command: git clone -b "${CI_SCRIPTS_TAG}" --single-branch --depth 1 https://github.com/zeppelin-no/ci-scripts.git
+      - run:
+          name: 'Deploy to dev'
+          command: |
+            ./ci-scripts/auth.sh dev
+            REPLICAS=1 ./ci-scripts/apply.sh default ${CIRCLE_TAG}
+      - run:
+          name: 'Deploy to prod'
+          command: |
+            ./ci-scripts/auth.sh prod
+            REPLICAS=2 ./ci-scripts/apply.sh default ${CIRCLE_TAG}
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+      - deployProd:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - deployStage:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

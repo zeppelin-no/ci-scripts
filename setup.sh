@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
+echo "DEPRECTATED use ensure-tools.sh (only if needed) and auth.sh"
 
-DIR=$(dirname "${BASH_SOURCE[0]}")
+DIR=$(dirname "$0")
 
-./${DIR}/k8s/ensure-kubectl.sh
-./${DIR}/k8s/authenticate.sh
-
-./${DIR}/ecr/authenticate.sh
+${DIR}/ensure-tools.sh
+${DIR}/k8s/authenticate.sh
+${DIR}/ecr/authenticate.sh
